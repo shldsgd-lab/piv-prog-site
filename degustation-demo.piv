@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "schema": "piv-mechanics/1",
+  "name": "Дегустация сорта — демо",
+  "nodes": [
+    {
+      "id": "demo-command",
+      "type": "trigger",
+      "x": 0,
+      "y": 0,
+      "title": "Команда /tasting",
+      "values": {
+        "command": "/tasting",
+        "description": "Начать безопасную тестовую дегустацию",
+        "cooldown": 0
+      }
+    },
+    {
+      "id": "demo-intro",
+      "type": "message",
+      "x": 280,
+      "y": 0,
+      "title": "Приглашение на дегустацию",
+      "values": {
+        "text": "🍻 Добро пожаловать на дегустацию! Выбери сорт, который попробуем первым.",
+        "format": "Обычный текст"
+      }
+    },
+    {
+      "id": "demo-flavours",
+      "type": "inline_keyboard",
+      "x": 560,
+      "y": 0,
+      "title": "Меню сортов",
+      "values": {
+        "buttons": "🌿 Хмелевой эль | taste:ipa\n🌾 Пшеничное | taste:wheat\n🌑 Тёмный стаут | taste:stout",
+        "columns": 1,
+        "layout": "Каждая кнопка в своей строке"
+      }
+    },
+    {
+      "id": "demo-ipa-event",
+      "type": "callback",
+      "x": 0,
+      "y": 240,
+      "title": "Выбран хмелевой эль",
+      "values": {
+        "callbackData": "taste:ipa",
+        "userId": 0
+      }
+    },
+    {
+      "id": "demo-ipa-response",
+      "type": "message",
+      "x": 280,
+      "y": 240,
+      "title": "Ответ про эль",
+      "values": {
+        "text": "🌿 Отличный выбор! У этого тестового эля цитрусовый аромат и мягкая горчинка. Это только демо — игровые предметы не выдаются.",
+        "format": "Обычный текст"
+      }
+    },
+    {
+      "id": "demo-wheat-event",
+      "type": "callback",
+      "x": 0,
+      "y": 480,
+      "title": "Выбрано пшеничное",
+      "values": {
+        "callbackData": "taste:wheat",
+        "userId": 0
+      }
+    },
+    {
+      "id": "demo-wheat-response",
+      "type": "message",
+      "x": 280,
+      "y": 480,
+      "title": "Ответ про пшеничное",
+      "values": {
+        "text": "🌾 Отлично! Тестовое пшеничное мягкое и слегка фруктовое. Это только демо — игровые предметы не выдаются.",
+        "format": "Обычный текст"
+      }
+    },
+    {
+      "id": "demo-stout-event",
+      "type": "callback",
+      "x": 0,
+      "y": 720,
+      "title": "Выбран стаут",
+      "values": {
+        "callbackData": "taste:stout",
+        "userId": 0
+      }
+    },
+    {
+      "id": "demo-stout-response",
+      "type": "message",
+      "x": 280,
+      "y": 720,
+      "title": "Ответ про стаут",
+      "values": {
+        "text": "🌑 Смелый выбор! Тестовый стаут с нотами кофе и какао. Это только демо — игровые предметы не выдаются.",
+        "format": "Обычный текст"
+      }
+    }
+  ],
+  "connections": [
+    { "from": "demo-command", "to": "demo-intro" },
+    { "from": "demo-intro", "to": "demo-flavours" },
+    { "from": "demo-ipa-event", "to": "demo-ipa-response" },
+    { "from": "demo-wheat-event", "to": "demo-wheat-response" },
+    { "from": "demo-stout-event", "to": "demo-stout-response" }
+  ]
+}

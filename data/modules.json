@@ -1,0 +1,160 @@
+{
+  "modules": [
+    {
+      "id": "hXbYUmwmyTGWWg",
+      "ownerId": "927858819",
+      "ownerName": "Sh1lds",
+      "title": "Ночная варка · легендарный рецепт",
+      "createdAt": "2026-10-04T18:53:09.500Z",
+      "module": {
+        "version": 1,
+        "name": "Ночная варка · легендарный рецепт",
+        "nodes": [
+          {
+            "id": "inline_keyboard-muu5y641-wiy",
+            "type": "inline_keyboard",
+            "x": 20,
+            "y": 598,
+            "title": "Создать инлайн-кнопки",
+            "values": {
+              "buttons": "🍺 Выебать| br_br_patapim\n🍺 Выебать водо| trala_trol\n",
+              "columns": 1,
+              "layout": "Каждая кнопка в своей строке"
+            }
+          },
+          {
+            "id": "trigger-muu5ye61-0av",
+            "type": "trigger",
+            "x": -318,
+            "y": 676,
+            "title": "Команда бота",
+            "values": {
+              "command": "/fuck",
+              "description": "фак",
+              "cooldown": 30
+            }
+          },
+          {
+            "id": "send_chat_action-muu6bl8d-ra3",
+            "type": "send_chat_action",
+            "x": 20,
+            "y": 754,
+            "title": "Показать действие бота",
+            "values": {
+              "action": "Печатает",
+              "duration": 3
+            }
+          },
+          {
+            "id": "callback-muu6c9yu-kxr",
+            "type": "callback",
+            "x": 228,
+            "y": 936,
+            "title": "Нажатие инлайн-кнопки",
+            "values": {
+              "callbackData": "br_br_patapim",
+              "userId": 0
+            }
+          },
+          {
+            "id": "callback-muu6d7fv-wx8",
+            "type": "callback",
+            "x": 176,
+            "y": 1092,
+            "title": "Нажатие инлайн-кнопки 2",
+            "values": {
+              "callbackData": "trala_trol",
+              "userId": 0
+            }
+          },
+          {
+            "id": "message-muu6dqoi-9li",
+            "type": "message",
+            "x": 514,
+            "y": 1170,
+            "title": "Отправить сообщение",
+            "values": {
+              "text": "оу да, водо трахнут",
+              "format": "Обычный текст"
+            }
+          },
+          {
+            "id": "message-muu6dtuu-hzu",
+            "type": "message",
+            "x": 540,
+            "y": 988,
+            "title": "Отправить сообщение 2",
+            "values": {
+              "text": "выебал хз кого, лови предмет",
+              "format": "Обычный текст"
+            }
+          },
+          {
+            "id": "inventory_add-muu6fajx-h70",
+            "type": "inventory_add",
+            "x": 540,
+            "y": 832,
+            "title": "Добавить в инвентарь",
+            "values": {
+              "item": "Хмель",
+              "quantity": 1
+            }
+          },
+          {
+            "id": "brew_product-muu6fvom-6io",
+            "type": "brew_product",
+            "x": 514,
+            "y": 1326,
+            "title": "Сварить случайный сорт",
+            "values": {
+              "quality": "Эпическое",
+              "quantity": 1
+            }
+          },
+          {
+            "id": "grant_badge-muu6gbch-5ku",
+            "type": "grant_badge",
+            "x": 514,
+            "y": 1482,
+            "title": "Выдать достижение",
+            "values": {
+              "badgeId": "fuck_vodo",
+              "message": "Новое достижение разблокировано!"
+            }
+          }
+        ],
+        "connections": [
+          {
+            "from": "trigger-muu5ye61-0av",
+            "to": "inline_keyboard-muu5y641-wiy"
+          },
+          {
+            "from": "trigger-muu5ye61-0av",
+            "to": "send_chat_action-muu6bl8d-ra3"
+          },
+          {
+            "from": "callback-muu6d7fv-wx8",
+            "to": "message-muu6dqoi-9li"
+          },
+          {
+            "from": "callback-muu6c9yu-kxr",
+            "to": "message-muu6dtuu-hzu"
+          },
+          {
+            "from": "callback-muu6c9yu-kxr",
+            "to": "inventory_add-muu6fajx-h70"
+          },
+          {
+            "from": "callback-muu6d7fv-wx8",
+            "to": "brew_product-muu6fvom-6io"
+          },
+          {
+            "from": "callback-muu6d7fv-wx8",
+            "to": "grant_badge-muu6gbch-5ku"
+          }
+        ],
+        "schema": "piv-mechanics/1"
+      }
+    }
+  ]
+}

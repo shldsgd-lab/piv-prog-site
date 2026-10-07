@@ -1,0 +1,9 @@
+{
+  "name": "piv-mechanics-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-pages.mjs",
+    "preview": "wrangler pages dev dist"
+  }
+}

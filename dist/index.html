@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5bc25">
+    <meta name="description" content="Визуальная мастерская механик для Пивовара">
+    <title>Пивовар — мастерская механик</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <section class="auth-gate" id="auth-gate" aria-labelledby="auth-title">
+      <div class="auth-card">
+        <span class="brand-mark auth-brand-mark">П</span>
+        <span class="eyebrow">МАСТЕРСКАЯ ПИВОВАРА</span>
+        <h1 id="auth-title">Войди через Telegram</h1>
+        <p>Регистрация нужна, чтобы сохранять механики и управлять тестовыми версиями. Тестовый бот работает отдельно от твоих игровых данных.</p>
+        <div class="telegram-login-slot" id="telegram-login-slot"></div>
+        <p class="auth-status" id="auth-status" role="status" aria-live="polite">Подключаем безопасный вход…</p>
+        <span class="auth-footnote">Только Telegram Login Widget; бот-пароль на сайте не запрашивается.</span>
+      </div>
+    </section>
+    <div class="app-shell" id="app-shell" inert aria-hidden="true">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Пивовар — мастерская">
+          <span class="brand-mark">П</span>
+          <span class="brand-copy"><strong>пивовар</strong><small>МАСТЕРСКАЯ</small></span>
+        </a>
+        <div class="project-heading">
+          <span class="eyebrow">РАБОЧАЯ ОБЛАСТЬ</span>
+          <h1><span id="project-title">Новая механика</span><span class="saved-dot" title="Все изменения сохранены"></span></h1>
+        </div>
+        <div class="top-actions">
+          <button class="avatar-button" id="login-button" type="button" aria-label="Войти через Telegram">
+            <span class="telegram-mark">➤</span><span class="login-label">Войти через Telegram</span>
+          </button>
+          <button class="icon-button theme-button" id="theme-button" type="button" aria-label="Включить тёмную тему" title="Переключить тему">☾</button>
+          <button class="icon-button help-button" type="button" aria-label="Справка" title="Как пользоваться">?</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="panel library-panel" id="library-panel">
+          <div class="panel-heading">
+            <div><span class="eyebrow">КОНСТРУКТОР</span><h2>Блоки</h2></div>
+            <button class="icon-button small-button" type="button" id="collapse-library" title="Свернуть блоки" aria-label="Свернуть блоки">‹</button>
+          </div>
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="block-search" type="search" placeholder="Найти блок…" autocomplete="off">
+            <kbd>⌘ K</kbd>
+          </label>
+          <div class="block-groups" id="block-groups"></div>
+          <div class="library-hint"><span class="hint-spark">✳</span><span>Перетащи блок<br>на рабочую область</span></div>
+        </aside>
+        <div class="panel-resize library-resize" data-resize="library" title="Перетащи, чтобы изменить ширину библиотеки" aria-label="Изменить ширину библиотеки"></div>
+
+        <section class="editor-column" aria-label="Редактор механики">
+          <div class="editor-toolbar">
+            <div class="breadcrumb"><span>Мои механики</span><span class="crumb-chevron">/</span><strong id="breadcrumb-title">Новая механика</strong></div>
+            <button class="icon-button reopen-library-button" id="show-library" type="button" title="Показать библиотеку блоков" aria-label="Показать библиотеку блоков">☷</button>
+            <div class="toolbar-actions">
+              <span class="autosave-status" id="save-status">Сохранено</span>
+              <button class="icon-button" id="undo-button" type="button" title="Отменить последнее изменение" aria-label="Отменить">↶</button>
+              <button class="icon-button" id="redo-button" type="button" title="Повторить отменённое действие (Ctrl+Alt+Z)" aria-label="Повторить">↷</button>
+              <button class="templates-button" id="templates-button" type="button" title="Добавить готовую цепочку блоков"><span>⌘</span> Цепочки</button>
+              <button class="templates-button game-screens-button" id="game-screens-button" type="button" title="Добавить игровые экраны и вкладки"><span>▦</span> Экраны</button>
+              <button class="templates-button game-database-button" id="game-database-button" type="button" title="Открыть постоянную базу данных игры"><span>▤</span> Данные</button>
+              <span class="toolbar-divider"></span>
+              <button class="icon-button" id="zoom-out" type="button" title="Уменьшить" aria-label="Уменьшить">−</button>
+              <span class="zoom-label" id="zoom-label">100%</span>
+              <button class="icon-button" id="zoom-in" type="button" title="Увеличить" aria-label="Увеличить">＋</button>
+              <button class="run-button" id="run-button" type="button"><span>▶</span> Тестировать</button>
+            </div>
+          </div>
+          <div class="canvas-wrap" id="canvas-wrap">
+            <div class="canvas-stage" id="canvas-stage">
+              <div class="canvas-grid" id="canvas-grid">
+                <svg class="wires-layer" id="wires-layer" aria-hidden="true"></svg>
+                <div class="empty-hint" id="empty-hint" hidden>Добавь блоки из библиотеки, чтобы начать ✨</div>
+                <div id="nodes-layer"></div>
+                <svg class="wires-overlay" id="wires-overlay" aria-hidden="true"></svg>
+              </div>
+            </div>
+            <div class="canvas-tools">
+              <button class="icon-button" id="fit-button" type="button" title="Вписать схему" aria-label="Вписать схему">⌗</button>
+              <button class="icon-button" id="snap-button" type="button" title="Включить привязку к сетке" aria-label="Включить привязку к сетке" aria-pressed="false">⌖</button>
+              <button class="icon-button" id="align-grid-button" type="button" title="Выровнять все блоки по сетке" aria-label="Выровнять все блоки по сетке">▤</button>
+              <button class="icon-button" id="grid-button" type="button" title="Скрыть сетку" aria-label="Скрыть сетку" aria-pressed="true">▦</button>
+            </div>
+            <div class="canvas-status"><span class="status-pulse"></span><span id="node-count">3 блока</span><span>·</span><span id="connection-count">2 связи</span></div>
+          </div>
+          <div class="editor-footer"><span><kbd>Колесо</kbd> масштаб · <kbd>Alt</kbd> + колесо — вбок · <kbd>Средняя кнопка</kbd> — двигать · <kbd>ЛКМ</kbd> по фону — рамка · <kbd>Ctrl</kbd> + <kbd>ЛКМ</kbd> — добавить к выделению</span><span><kbd>ПКМ</kbd> — контекстное меню · клик по блоку — настройки</span></div>
+        </section>
+        <div class="panel-resize inspector-resize" data-resize="inspector" title="Перетащи, чтобы изменить ширину параметров" aria-label="Изменить ширину параметров"></div>
+
+        <aside class="panel inspector-panel" id="inspector-panel">
+          <div class="panel-heading">
+            <div><span class="eyebrow">НАСТРОЙКИ</span><h2>Параметры блока</h2></div>
+            <button class="icon-button small-button" id="close-inspector" type="button" title="Закрыть параметры" aria-label="Закрыть параметры">×</button>
+          </div>
+          <div class="inspector-content" id="inspector-content"></div>
+        </aside>
+      </main>
+
+      <nav class="bottom-dock" aria-label="Главная навигация">
+        <button class="dock-item active" data-view="editor" type="button"><span class="dock-icon">⌘</span><span>Главная</span></button>
+        <button class="dock-item" data-view="files" type="button"><span class="dock-icon">⇧</span><span>Загрузка</span></button>
+        <button class="dock-item" data-view="test" type="button"><span class="dock-icon">▷</span><span>Тест</span><span class="dock-badge" id="test-badge" hidden></span></button>
+        <button class="dock-item" data-view="settings" type="button"><span class="dock-icon">⚙</span><span>Настройки</span></button>
+      </nav>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="node-context-menu" id="node-context-menu" role="menu" hidden></div>
+    <dialog class="sheet-dialog" id="sheet-dialog">
+      <div class="dialog-grabber"></div>
+      <button class="dialog-close icon-button" id="dialog-close" type="button" aria-label="Закрыть">×</button>
+      <div id="dialog-content"></div>
+    </dialog>
+    <input id="import-file" type="file" accept=".piv,application/vnd.piv.mechanic+json,.json,application/json" hidden>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
