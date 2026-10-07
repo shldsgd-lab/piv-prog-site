@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-pages.mjs",
-    "preview": "wrangler pages dev dist",
-    "deploy": "npx wrangler pages deploy dist --project-name piv-prog-site"
+    "preview": "wrangler dev",
+    "deploy": "npx wrangler deploy"
   }
 }

@@ -3435,6 +3435,15 @@
     if (isDev) showToast('Локальный режим разработчика включён');
   }
 
+  async function readApiJson(response) {
+    const body = await response.text();
+    try {
+      return JSON.parse(body);
+    } catch {
+      throw new Error(`API вернул пустой или не-JSON ответ (HTTP ${response.status}). Проверь маршрут /api и настройки Worker.`);
+    }
+  }
+
   function showTelegramLogin() {
     const slot = $('#telegram-login-slot');
     const status = $('#auth-status');
@@ -3452,7 +3461,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(user)
         });
-        const result = await response.json();
+        const result = await readApiJson(response);
         if (!response.ok) throw new Error(result.error || 'Не удалось подтвердить Telegram-вход.');
         unlockWorkspace(result.user);
       } catch (error) {
@@ -3478,7 +3487,8 @@
     lockWorkspace();
     try {
       const configResponse = await fetch('/api/config');
-      authConfig = await configResponse.json();
+      authConfig = await readApiJson(configResponse);
+      if (!configResponse.ok) throw new Error(authConfig.error || `Ошибка API: HTTP ${configResponse.status}.`);
       if (!authConfig.telegramConfigured) {
         showTelegramLogin();
         return;
