@@ -5,6 +5,6 @@
   "scripts": {
     "build": "node scripts/build-pages.mjs",
     "preview": "wrangler pages dev dist",
-    "deploy": "npx wrangler pages deploy dist --project-name piv-mechanics-studio"
+    "deploy": "npx wrangler pages deploy dist --project-name piv-prog-site"
   }
 }
