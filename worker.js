@@ -25,6 +25,10 @@ export default {
     if (!['http:', 'https:'].includes(backend.protocol) || backend.username || backend.password) {
       return jsonError(500, 'Worker API_ORIGIN must use HTTP or HTTPS and must not contain credentials.');
     }
+    const ipv4 = backend.hostname.split('.');
+    if (ipv4.length === 4 && ipv4.every(part => /^\d{1,3}$/.test(part) && Number(part) <= 255)) {
+      backend.hostname = `${backend.hostname}.nip.io`;
+    }
 
     backend.pathname = `${backend.pathname.replace(/\/+$/, '')}${incoming.pathname}`;
     backend.search = incoming.search;
