@@ -20,10 +20,10 @@ export default {
     try {
       backend = new URL(env.API_ORIGIN);
     } catch {
-      return jsonError(500, 'Worker API_ORIGIN must be a valid HTTPS URL.');
+      return jsonError(500, 'Worker API_ORIGIN must be a valid HTTP or HTTPS URL.');
     }
-    if (backend.protocol !== 'https:') {
-      return jsonError(500, 'Worker API_ORIGIN must use HTTPS.');
+    if (!['http:', 'https:'].includes(backend.protocol) || backend.username || backend.password) {
+      return jsonError(500, 'Worker API_ORIGIN must use HTTP or HTTPS and must not contain credentials.');
     }
 
     backend.pathname = `${backend.pathname.replace(/\/+$/, '')}${incoming.pathname}`;

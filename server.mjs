@@ -1,7 +1,7 @@
 import { createHmac, createHash, timingSafeEqual, randomBytes } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
-import { extname, resolve, sep } from 'node:path';
+import { extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sendQuickTest, startTelegramBot } from './telegram-bot.mjs';
 
@@ -258,16 +258,18 @@ const server = createServer(async (request, response) => {
   }
 
   const pathname = url.pathname;
-  const requested = pathname === '/' ? 'index.html' : decodeURIComponent(pathname.slice(1));
-  if (requested === 'data' || requested.startsWith('data/') || requested.startsWith(`data${sep}`)) {
-    response.writeHead(403).end('Forbidden');
+  let requested;
+  try {
+    requested = pathname === '/' ? 'index.html' : decodeURIComponent(pathname.slice(1));
+  } catch {
+    response.writeHead(400).end('Bad request');
+    return;
+  }
+  if (!['index.html', 'app.js', 'styles.css'].includes(requested)) {
+    response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }).end('Not found');
     return;
   }
   const file = resolve(root, requested);
-  if (file !== root && !file.startsWith(root + sep)) {
-    response.writeHead(403).end('Forbidden');
-    return;
-  }
   try {
     const data = await readFile(file);
     response.writeHead(200, { 'Content-Type': types[extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
